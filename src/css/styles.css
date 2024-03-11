@@ -14,53 +14,77 @@ body {
 
 .search-form{
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
+  margin-bottom: 32px
 }
 
-.search-input{
-  width: 272px;
-  height: 40px;
+.search-input {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #808080;
+  border: 1px solid black;
   border-radius: 4px;
-  border-width: 1px;
-  padding: 15px;
+  width: 272px;
+  padding: 8px
 }
 
-.search-btn{
-  width: 91px;
-  height: 40px;
-  font-family: Montserrat;
+.submit-btn {
   font-weight: 500;
-  color: white;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
   border: none;
   border-radius: 8px;
-  background-color: #4E75FF;
-  transition-duration: 0.2s;
+  padding: 8px 16px;
+  width: 91px;
+  background: #4e75ff;
 }
 
-.search-btn:hover{
-  background-color: #6C8CFF;
+.submit-btn:hover,
+.submit-btn:focus {
+  background: #6c8cff;
+}
+
+.load-btn {
+  display: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 150px;
+  background: #4e75ff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: static;
+  bottom: 20px;
+  left: 45%;
+  margin-bottom: 10px;
+}
+
+.load-btn:hover,
+.load-btn:focus {
+  background: #6c8cff;
 }
 
 .gallery {
-  max-width: 1128px; 
-  margin: 30px auto; 
-  display: flex; 
+  display: flex;
+  list-style-type: none;
   flex-wrap: wrap;
-  justify-content: space-between; 
-}
-
-
-.gallery-item {
-  border: 1px solid black;
-  width: 360px;
-  margin-bottom: 20px;
-}
-
-.image {
-  width: 360px;
-  height: 240px; 
-  object-fit: cover; 
+  flex-direction: row;
+  column-gap: 24px;
+  row-gap: 28px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .item-info {
@@ -77,6 +101,7 @@ body {
 .gallery-item-info{
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   padding: 0 10px;
 }
 
@@ -98,6 +123,17 @@ body {
   font-size: 12px;
   font-weight: 400;
   line-height: 16px; 
+}
+
+.image {
+  width: 360px;
+  height: 240px; 
+  object-fit: cover; 
+}
+
+
+.gallery-image:hover {
+  transform: scale(1.1);
 }
 
 .loader {
@@ -134,3 +170,5 @@ body {
   0% , 60% , 100%{ transform:  scale(1) }
   80% { transform:  scale(1.2)}
 }
+
+

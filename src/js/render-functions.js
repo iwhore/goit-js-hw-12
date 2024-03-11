@@ -1,12 +1,12 @@
-export function renderMarkup(data) {
+export function createMarkup(data) {
     return data.hits
-      .map(
-        el =>
-          `<div class="gallery-item">
-              <a class="gallery-link" href="${el.largeImageURL}">
+    .map(
+        el => 
+        `<div class="gallery-item>
+        <a class="gallery-link" href="${el.largeImageURL}">
                   <img class="image" src="${el.webformatURL}" alt="${el.tags}" />
-              </a>
-              <div class="gallery-item-info">
+        </a>
+        <div class="gallery-item-info">
                   <p class="gallery-info">
                       <span class="item-info">Likes: <span class ="span">${el.likes}</span></span>    
                   </p>
@@ -20,7 +20,12 @@ export function renderMarkup(data) {
                       <span class="item-info">Downloads: <span class ="span">${el.downloads}</span></span>    
                   </p>
               </div>
-          </div>`
+          </div>
+    </div>`
       )
     .join('');
 }
+  
+  
+  
+  
