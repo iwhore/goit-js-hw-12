@@ -33,7 +33,6 @@ export async function searchImages(searchWord, perPage, page) {
           message:
             'There are no images matching your search query. Please, enter something else!',
         });
-      loadMoreBtn.style.display = 'none';
       loader.style.display = 'none';
       searchForm.reset()
     }

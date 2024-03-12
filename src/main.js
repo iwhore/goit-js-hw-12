@@ -15,6 +15,7 @@ const lightbox = new SimpleLightbox('.gallery div', {
   captionsData: 'alt',
   captionDelay: 150,
 });
+const perPage = 50;
 
 const searchForm = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
@@ -35,7 +36,6 @@ async function handleSearch(event) {
   loader.style.display = 'block';
   gallery.innerHTML = '';
 
-  
   const form = event.currentTarget;
   const searchWord = form.elements.searchWord.value.trim();
 
@@ -53,13 +53,17 @@ async function handleSearch(event) {
   }
 
   try {
-    const arr = await searchImages(searchWord, 15, 1);
+    const arr = await searchImages(searchWord, perPage, 1);
     totalHits = arr.totalHits;
     gallery.innerHTML = createMarkup(arr);
     currentQuery = searchWord;
     currentPage = 1;
     lightbox.refresh();
-    toggleLoadBtnVisibility();
+    if (!totalHits || totalHits <= currentPage * perPage) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.style.display = 'block';
+    }
   } catch (error) {
     console.error('Error:', error);
   } finally {
@@ -72,22 +76,26 @@ loadMoreBtn.addEventListener('click', async (event) => {
   currentPage += 1;
 
   try {
-    const data = await searchImages(currentQuery, 15, currentPage);
+    const data = await searchImages(currentQuery, perPage, currentPage);
 
-    if (currentPage * 15 < totalHits) {
+    if (data.hits && data.hits.length > 0) {
       gallery.innerHTML += createMarkup(data);
       lightbox.refresh();
       smoothScroll();
+      
+      if (currentPage * perPage >= totalHits) {
+        loadMoreBtn.style.display = 'none';
+        iziToast.show({
+          title: 'info',
+          titleColor: '#FFFFFF',
+          backgroundColor: '#6C8CFF',
+          position: 'topRight',
+          messageColor: '#FFFFFF',
+          message: "We're sorry, but you've reached the end of search results.",
+        });
+      }
     } else {
       loadMoreBtn.style.display = 'none';
-      iziToast.show({
-        title: 'info',
-        titleColor: '#FFFFFF',
-        backgroundColor: '#6C8CFF',
-        position: 'topRight',
-        messageColor: '#FFFFFF',
-        message: "We're sorry, but you've reached the end of search results.",
-      });
     }
   } catch (error) {
     console.error('Error:', error);
@@ -103,13 +111,5 @@ function smoothScroll() {
     top: 2 * galleryHeight,
     behavior: 'smooth'
   });
-}
-
-function toggleLoadBtnVisibility() {
-  if (gallery.querySelector('img')) {
-    loadMoreBtn.style.display = 'block';
-  } else {
-    loadMoreBtn.style.display = 'none';
-  }
 }
 
