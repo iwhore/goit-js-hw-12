@@ -15,7 +15,7 @@ const lightbox = new SimpleLightbox('.gallery div', {
   captionsData: 'alt',
   captionDelay: 150,
 });
-const perPage = 50;
+const perPage = 15;
 
 const searchForm = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
