@@ -71,8 +71,6 @@ loadMoreBtn.addEventListener('click', async (event) => {
   loader.style.display = 'block';
   currentPage += 1;
 
-  const displayedImagesCount = gallery.querySelectorAll('img').length;
-
   try {
     const data = await searchImages(currentQuery, 15, currentPage);
 
