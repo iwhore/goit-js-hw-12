@@ -59,7 +59,6 @@ async function handleSearch(event) {
     currentQuery = searchWord;
     currentPage = 1;
     lightbox.refresh();
-    form.reset();
     toggleLoadBtnVisibility();
   } catch (error) {
     console.error('Error:', error);
@@ -72,14 +71,17 @@ loadMoreBtn.addEventListener('click', async (event) => {
   loader.style.display = 'block';
   currentPage += 1;
 
+  const displayedImagesCount = gallery.querySelectorAll('img').length;
+
   try {
     const data = await searchImages(currentQuery, 15, currentPage);
 
     if (currentPage * 15 < totalHits) {
       gallery.innerHTML += createMarkup(data);
       lightbox.refresh();
-      smootScroll();
+      smoothScroll();
     } else {
+      loadMoreBtn.style.display = 'none';
       iziToast.show({
         title: 'info',
         titleColor: '#FFFFFF',
@@ -88,7 +90,6 @@ loadMoreBtn.addEventListener('click', async (event) => {
         messageColor: '#FFFFFF',
         message: "We're sorry, but you've reached the end of search results.",
       });
-      loadMoreBtn.style.display = 'none';
     }
   } catch (error) {
     console.error('Error:', error);
@@ -98,7 +99,7 @@ loadMoreBtn.addEventListener('click', async (event) => {
   }
 });
 
-function smootScroll() {
+function smoothScroll() {
   const galleryHeight = gallery.firstElementChild.getBoundingClientRect().height;
   window.scrollBy({
     top: 2 * galleryHeight,
